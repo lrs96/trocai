@@ -15,16 +15,19 @@ def home():
 @app.route('/contato')
 def contato():
 
-    return render_template('index.html')
+    return render_template('contact.html')
 
 @app.route('/pesquisa')
 def pesquisa():
 
     return render_template('index.html')
+@app.route('/como-funciona')
+def comofunciona():
+    return render_template('como-funciona.html')
 
+    
 @app.route('/oportunidades')
 def oportunidades():
-
     return render_template('index.html')
 
 @app.route('/quemsomos')
