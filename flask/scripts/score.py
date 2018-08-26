@@ -11,6 +11,7 @@ def updateRatingComprador(score_base, comprador):
 
     #filtra comprador selecionado
     score_base = score_base.query('id_empresa_compradora=='+str(comprador))
+    
     #calcula rating ponderado
     score_base = score_base.assign(pont_trans_compradora = (score_base['negociacoes_compradora']/score_base['negociacoes_compradora'].max())*score_base['avaliacao_compradora'])
     return score_base
