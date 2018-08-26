@@ -30,7 +30,7 @@ def oportunidades():
 @app.route('/quemsomos')
 def quemsomos():
 
-    return render_template('index.html')
+    return render_template('quemsomos.html')
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
