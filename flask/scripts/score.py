@@ -7,7 +7,7 @@ def getSamples():
 
 def updateRatingComprador(score_base, comprador):
     #Calcula rating mediano atualizado para compras
-    #Objetivo futuro utilizar scikit learn com modelo de decision tree
+    #Objetivo futuro utilizar scikit learn com modelo de decision tree incrementando informações com crowler do ReclameAqui
 
     #filtra comprador selecionado
     score_base = score_base.query('id_empresa_compradora=='+str(comprador))
@@ -18,7 +18,7 @@ def updateRatingComprador(score_base, comprador):
 
 def updateRatingVendedor(score_base, vendedor):
     #Calcula rating mediano atualizado para vendas
-    #Objetivo futuro utilizar scikit learn com modelo de decision tree
+    #Objetivo futuro utilizar scikit learn com modelo de decision tree incrementando informações com crowler do ReclameAqui
     
     #filtra comprador selecionado
     score_base = score_base.query('id_empresa_vendedora=='+str(vendedor))
