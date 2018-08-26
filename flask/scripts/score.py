@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 def getSamples():
-    score_base = pd.read_csv('sample_data\sample.csv',delimiter=';')
+    score_base = pd.read_csv('sample_data\\sample.csv',delimiter=';')
     return score_base
 
 def updateRatingComprador(score_base):
