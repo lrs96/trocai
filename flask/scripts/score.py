@@ -5,15 +5,24 @@ def getSamples():
     score_base = pd.read_csv('sample_data\\sample.csv',delimiter=';')
     return score_base
 
-def updateRatingComprador(score_base):
+def updateRatingComprador(score_base, comprador):
     #Calcula rating mediano atualizado para compras
     #Objetivo futuro utilizar scikit learn com modelo de decision tree
+
+    #filtra comprador selecionado
+    score_base = score_base.query('id_empresa_compradora=='+str(comprador))
+    #calcula rating ponderado
     score_base = score_base.assign(pont_trans_compradora = (score_base['negociacoes_compradora']/score_base['negociacoes_compradora'].max())*score_base['avaliacao_compradora'])
     return score_base
 
-def updateRatingVendedor(score_base):
-    #Calcura rating mediano atualizado para vendas
+def updateRatingVendedor(score_base, vendedor):
+    #Calcula rating mediano atualizado para vendas
     #Objetivo futuro utilizar scikit learn com modelo de decision tree
+    
+    #filtra comprador selecionado
+    score_base = score_base.query('id_empresa_vendedora=='+str(vendedor))
+
+    #calcula rating ponderado
     score_base = score_base.assign(pont_trans_vendedora = (score_base['negociacoes_vendedora']/score_base['negociacoes_vendedora'].max())*score_base['avaliacao_vendedora'])
     return score_base
 
@@ -28,16 +37,26 @@ def getVendedores(score_base):
 
 def getScoreComprador(score_base, comprador):
     #atualiza calculo de rating do comprador
-    updateRatingComprador(score_base)
-    #retorna mediana dos valores ponderados e atualizados
-    return score_base.query('id_empresa_compradora=='+str(comprador))['pont_trans_compradora'].median()
+    updateRatingComprador(score_base, comprador)
+
+    #avalia se o comprador possui mais de 6 interacoes
+    if score_base.query('id_empresa_comprador=='+str(comprador)).negociacoes_comprador.max() >= 6:
+        #retorna mediana dos valores ponderados e atualizados
+        return score_base.query('id_empresa_compradora=='+str(comprador))['pont_trans_compradora'].median()
+    else:
+        return 0
 
 def getScoreVendedor(score_base, vendedor):
     #atualiza calculo de rating de vendedor
-    updateRatingVendedor(score_base)
-    
-    #retorna mediana dos valores ponderados e atualizados
-    return score_base.query('id_empresa_vendedora=='+str(vendedor))['pont_trans_vendedora'].median()
+    updateRatingVendedor(score_base, vendedor)
+
+    #avalia se o vendedor possui mais de 6 interacoes
+    if score_base.query('id_empresa_vendedora=='+str(vendedor)).negociacoes_vendedora.max() >= 6:
+
+        #retorna mediana dos valores ponderados e atualizados
+        return score_base.query('id_empresa_vendedora=='+str(vendedor))['pont_trans_vendedora'].median()
+    else:
+        return 0
 
 ##### Exemplos de utilizacao
 
